@@ -12,7 +12,7 @@ const availableTime = 7 * 3600 * 1000;
 const pdfTotalPages = 272;
 
 // A modifier pour mettre à jour la progression
-const pdfCurrentPage = 118;
+const pdfCurrentPage = 121;
 
 const pdfExpectedPage = Math.floor(
   (elapsedTime / availableTime) * pdfTotalPages
@@ -31,30 +31,16 @@ const formatMessage = (
   return `${progressionRelative} pages en ${trainingStatus} - page ${pdfCurrentPage}/${pdfTotalPages}(${progressionPourcentage}% progression) - on devrait être à la page ${pdfExpectedPage}/${pdfTotalPages}`;
 };
 
-const assertTrainingIsOnTime = (pdfExpectedPage, pdfCurrentPage) => {
-  return pdfExpectedPage > pdfCurrentPage;
-};
+const assertTrainingIsOnTime = (pdfExpectedPage, pdfCurrentPage) =>
+  pdfCurrentPage > pdfExpectedPage;
 
 const isTrainingOnTime = assertTrainingIsOnTime(
   pdfExpectedPage,
   pdfCurrentPage
 );
-let message;
 
-if (isTrainingOnTime) {
-  message = formatMessage(
-    "RETARD 🐌!",
-    pdfCurrentPage,
-    pdfTotalPages,
-    pdfExpectedPage
-  );
-} else {
-  message = formatMessage(
-    "AVANCE 🐇!",
-    pdfCurrentPage,
-    pdfTotalPages,
-    pdfExpectedPage
-  );
-}
+const message = isTrainingOnTime ? "AVANCE 🐇!" : "RETARD 🐌!";
 
-console.log(message);
+console.log(
+  formatMessage(message, pdfCurrentPage, pdfTotalPages, pdfExpectedPage)
+);
