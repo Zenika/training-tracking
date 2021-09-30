@@ -12,7 +12,7 @@ const availableTime = 7 * 3600 * 1000;
 const pdfTotalPages = 272;
 
 // A modifier pour mettre à jour la progression
-const pdfCurrentPage = 121;
+const pdfCurrentPage = process.argv[2] || 134;
 
 const pdfExpectedPage = Math.floor(
   (elapsedTime / availableTime) * pdfTotalPages
